@@ -6,6 +6,7 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+import defaultStocks from "~/data";
 
 import { env } from "~/env.mjs";
 import { db } from "~/server/db";
@@ -45,6 +46,24 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+
+  },
+  events: {
+    createUser: async (message) => {
+      for(const stock of defaultStocks) { 
+      await db.stock.create({
+          data: {
+            logo: stock.logo,
+            name: stock.name,
+            symbol: stock.symbol,
+            category: stock.category,
+            firstPrice: stock.firstPrice,
+            owned: 0,
+            userId: message.user.id,
+          }
+        });
+      };
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [
