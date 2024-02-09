@@ -7,13 +7,13 @@ import Graph from "~/components/main_panel/graph";
 import ControlPanel from "~/components/main_panel/controlPanel";
 import { useState } from "react";
 import Portfolio from "~/components/main_panel/portfolio";
-import { api } from "~/utils/api";
+import { StockProvider } from "~/dataContext";
 
 export default function Home() {
-  const { data: sessionData } = useSession();
   const [displayPortfolio, setDisplayPortfolio] = useState(false);
-  const [graphData, setGraphData] = useState<string>("Apple");
-  const { data: stock } = api.stock.one.useQuery({ name: graphData });
+  const [graphData, setGraphData] = useState({ name: "", startPrice: 0 });
+
+  const { data: sessionData } = useSession();
 
   return (
     <>
@@ -24,21 +24,33 @@ export default function Home() {
       </Head>
       <main className="flex h-screen min-h-full w-screen min-w-full flex-col">
         <Headbar />
-        <div className="flex h-full flex-row">
-          <StockSidebar setGraphData={setGraphData} />
-          <div className="relative flex w-full flex-col overflow-hidden">
-            {displayPortfolio ? (
-              <Portfolio setDisplayPortfolio={setDisplayPortfolio} />
-            ) : (
-              <>
-                <Graph />
-                <ControlPanel setDisplayPortfolio={setDisplayPortfolio} />
-              </>
-            )}
-          </div>
-          <NewsSidebar />
-          {sessionData ? <></> : <></>}
-        </div>
+        {sessionData ? (
+          <StockProvider>
+            <div className="flex h-full flex-row">
+              <StockSidebar setGraphData={setGraphData} />
+              <div className="relative flex w-full flex-col overflow-hidden">
+                {displayPortfolio ? (
+                  <Portfolio setDisplayPortfolio={setDisplayPortfolio} />
+                ) : (
+                  <>
+                    {graphData.name === "" ? (
+                      <div className="relative z-10 h-full w-full min-w-full self-stretch"></div>
+                    ) : (
+                      <Graph
+                        company={graphData.name}
+                        startPrice={graphData.startPrice}
+                      />
+                    )}
+                    <ControlPanel setDisplayPortfolio={setDisplayPortfolio} />
+                  </>
+                )}
+              </div>
+              <NewsSidebar />
+            </div>
+          </StockProvider>
+        ) : (
+          <></>
+        )}
       </main>
     </>
   );

@@ -107,9 +107,8 @@ model News {
 }
 
 model PriceMove {
-    id      String   @id @default(cuid())
-    date    DateTime
+    id      String @id @default(cuid())
     price   Float
-    stock   Stock    @relation(fields: [stockId], references: [id])
+    stock   Stock  @relation(fields: [stockId], references: [id])
     stockId String
 }

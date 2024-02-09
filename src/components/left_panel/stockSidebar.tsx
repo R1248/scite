@@ -1,10 +1,10 @@
-import { type FC, useState } from "react";
+import { type FC, useState, useContext } from "react";
 import StockItem from "./stockItem";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import { api } from "~/utils/api";
+import { StockContext } from "~/dataContext";
 
 type StockSidebarProps = {
-  setGraphData: (graphData: string) => void;
+  setGraphData: (graphData: { name: string; startPrice: number }) => void;
 };
 
 const StockSidebar: FC<StockSidebarProps> = ({ setGraphData }) => {
@@ -12,97 +12,64 @@ const StockSidebar: FC<StockSidebarProps> = ({ setGraphData }) => {
   const [openedBanking, setOpenedBanking] = useState(true);
   const [openedAutomotive, setOpenedAutomotive] = useState(true);
 
-  const { data: stocks, isLoading, isError } = api.stock.all.useQuery();
-
-  if (isLoading) {
-    return (
-      <div className="z-10 h-full w-64 min-w-[256px] border-r border-solid border-black bg-white">
-        Loading...
-      </div>
-    );
-  }
-  if (isError) {
-    return (
-      <div className="z-10 h-full w-64 min-w-[256px] border-r border-solid border-black bg-white">
-        Error
-      </div>
-    );
-  }
+  const stocks = useContext(StockContext);
 
   return (
     <div className="z-10 h-full w-64 min-w-[256px] border-r border-solid border-black bg-white">
-      {stocks.length !== 0 ? (
-        <>
-          <>
-            <CategoryHeading
-              category="Technology"
-              opened={openedTech}
-              setOpened={setOpenedTech}
+      <CategoryHeading
+        category="Technology"
+        opened={openedTech}
+        setOpened={setOpenedTech}
+      />
+      {openedTech &&
+        stocks
+          .filter((stock) => stock.category === "Technology")
+          .map((stock) => (
+            <StockItem
+              id={stock.id}
+              setGraphData={setGraphData}
+              key={stock.symbol}
+              name={stock.symbol}
+              changePercent={2}
+              price={stock.firstPrice}
             />
-            {openedTech &&
-              stocks
-                .filter((stock) => stock.category === "Technology")
-                .map((stock) => (
-                  <StockItem
-                    setGraphData={setGraphData}
-                    key={stock.symbol}
-                    name={stock.symbol}
-                    changePercent={2}
-                    category={stock.category}
-                    price={stock.firstPrice}
-                  />
-                ))}
-          </>
-          <>
-            <CategoryHeading
-              category="Banking"
-              opened={openedBanking}
-              setOpened={setOpenedBanking}
+          ))}
+      <CategoryHeading
+        category="Banking"
+        opened={openedBanking}
+        setOpened={setOpenedBanking}
+      />
+      {openedBanking &&
+        stocks
+          .filter((stock) => stock.category === "Banking")
+          .map((stock) => (
+            <StockItem
+              id={stock.id}
+              setGraphData={setGraphData}
+              key={stock.symbol}
+              name={stock.symbol}
+              changePercent={2}
+              price={stock.firstPrice}
             />
-            {openedBanking &&
-              stocks
-                .filter((stock) => stock.category === "Banking")
-                .map((stock) => (
-                  <StockItem
-                    setGraphData={setGraphData}
-                    key={stock.symbol}
-                    name={stock.symbol}
-                    changePercent={2}
-                    category={stock.category}
-                    price={stock.firstPrice}
-                  />
-                ))}
-          </>
-          <>
-            <CategoryHeading
-              category="Automotive"
-              opened={openedAutomotive}
-              setOpened={setOpenedAutomotive}
+          ))}
+      <CategoryHeading
+        category="Automotive"
+        opened={openedAutomotive}
+        setOpened={setOpenedAutomotive}
+      />
+      {openedAutomotive &&
+        stocks
+          .filter((stock) => stock.category === "Automotive")
+          .map((stock) => (
+            <StockItem
+              id={stock.id}
+              setGraphData={setGraphData}
+              key={stock.symbol}
+              name={stock.symbol}
+              changePercent={2}
+              price={stock.firstPrice}
             />
-            {openedAutomotive &&
-              stocks
-                .filter((stock) => stock.category === "Automotive")
-                .map((stock) => (
-                  <StockItem
-                    setGraphData={setGraphData}
-                    key={stock.symbol}
-                    name={stock.symbol}
-                    changePercent={2}
-                    category={stock.category}
-                    price={stock.firstPrice}
-                  />
-                ))}
-          </>
-        </>
-      ) : (
-        /*<button
-          className="w-full border-b border-solid border-gray-300 p-[2px] text-center hover:bg-gray-200"
-          onClick={createStocks}
-        >
-          Create Stocks
-        </button>*/
-        <></>
-      )}
+          ))}
     </div>
   );
 };

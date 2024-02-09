@@ -14,6 +14,7 @@ const Headbar = () => {
     <div className="relative z-20 flex w-full min-w-full flex-row items-center border-b border-solid border-black bg-white">
       <Image src={Logo} alt="logo" width={64} height={64} />
       <h1 className="invisible mt-1 text-3xl sm:visible">SCITE SIMULATOR</h1>
+      <div></div>
       <button
         ref={profleButtonRef}
         className="ml-auto mr-2 text-5xl"

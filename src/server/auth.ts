@@ -6,7 +6,7 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
-import defaultStocks from "~/data";
+import defaultStocks, { defaultPriceMoves } from "~/data";
 
 import { env } from "~/env.mjs";
 import { db } from "~/server/db";
@@ -25,11 +25,6 @@ declare module "next-auth" {
       // role: UserRole;
     };
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 /**
@@ -50,7 +45,7 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     createUser: async (message) => {
-      for(const stock of defaultStocks) { 
+      for(const stock of defaultStocks) {
       await db.stock.create({
           data: {
             logo: stock.logo,
@@ -62,7 +57,24 @@ export const authOptions: NextAuthOptions = {
             userId: message.user.id,
           }
         });
-      };
+      }
+      const stocks = await db.stock.findMany({
+        where: {
+          userId: message.user.id,
+        },
+      });
+      let i = 0;
+      for(const stock of stocks) {
+        for(const priceMove of defaultPriceMoves[i]!) {
+          await db.priceMove.create({
+            data: {
+              price: priceMove,
+              stockId: stock.id,
+            },
+          });
+        }
+        i++;
+      }
     },
   },
   adapter: PrismaAdapter(db),

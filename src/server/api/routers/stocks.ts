@@ -61,7 +61,16 @@ export const stockRouter = createTRPCRouter({
       data: {
         stockId: input.stockId,
         price: input.price,
-        date: input.date,
+      },
+    });
+  }),
+
+  allPriceMoves: protectedProcedure
+  .input(z.object({stockId: z.string()}))
+  .query(async ({ctx, input}) => {
+    return ctx.db.priceMove.findMany({
+      where: {
+        stockId: input.stockId,
       },
     });
   }),
