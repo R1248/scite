@@ -5,7 +5,7 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 import defaultStocks, { defaultPriceMoves } from "~/data";
 
 import { env } from "~/env.mjs";
@@ -53,6 +53,8 @@ export const authOptions: NextAuthOptions = {
             symbol: stock.symbol,
             category: stock.category,
             firstPrice: stock.firstPrice,
+            currentPrice: stock.currentPrice,
+            previousPrice: stock.previousPrice,
             owned: 0,
             userId: message.user.id,
           }
@@ -79,9 +81,9 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(db),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
     /**
      * ...add more providers here.

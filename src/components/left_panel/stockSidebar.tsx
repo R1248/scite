@@ -30,8 +30,13 @@ const StockSidebar: FC<StockSidebarProps> = ({ setGraphData }) => {
               setGraphData={setGraphData}
               key={stock.symbol}
               name={stock.symbol}
-              changePercent={2}
-              price={stock.firstPrice}
+              changePercent={
+                ((stock.currentPrice - stock.previousPrice) /
+                  stock.previousPrice) *
+                100
+              }
+              price={stock.currentPrice}
+              firstPrice={stock.firstPrice}
             />
           ))}
       <CategoryHeading
@@ -48,8 +53,13 @@ const StockSidebar: FC<StockSidebarProps> = ({ setGraphData }) => {
               setGraphData={setGraphData}
               key={stock.symbol}
               name={stock.symbol}
-              changePercent={2}
-              price={stock.firstPrice}
+              changePercent={
+                ((stock.currentPrice - stock.previousPrice) /
+                  stock.previousPrice) *
+                100
+              }
+              price={stock.currentPrice}
+              firstPrice={stock.firstPrice}
             />
           ))}
       <CategoryHeading
@@ -66,8 +76,13 @@ const StockSidebar: FC<StockSidebarProps> = ({ setGraphData }) => {
               setGraphData={setGraphData}
               key={stock.symbol}
               name={stock.symbol}
-              changePercent={2}
-              price={stock.firstPrice}
+              changePercent={
+                ((stock.currentPrice - stock.previousPrice) /
+                  stock.previousPrice) *
+                100
+              }
+              price={stock.currentPrice}
+              firstPrice={stock.firstPrice}
             />
           ))}
     </div>
@@ -89,7 +104,7 @@ const CategoryHeading: FC<CategoryHeadingProps> = ({
 }) => {
   return (
     <button
-      className="flex w-full flex-row border-y border-solid border-gray-300 p-[2px] hover:bg-gray-200"
+      className="flex w-full flex-row border-y border-solid border-gray-300 p-[2px] hover:bg-gray-100"
       onClick={() => setOpened(!opened)}
     >
       <div className="ml-1">{category} sector</div>

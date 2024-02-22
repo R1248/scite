@@ -18,7 +18,7 @@ const NewsItem: FC<NewsItemProps> = ({ news }) => {
       <button
         className={`static bg-${
           expand === true ? "gray-100" : "white"
-        } flex w-full flex-col border-b border-solid border-gray-300 p-1 hover:bg-gray-200`}
+        } flex w-full flex-col border-b border-solid border-gray-300 p-1 hover:bg-gray-100`}
         onClick={() => setExpand(!expand)}
       >
         <div className="flex w-full flex-row">

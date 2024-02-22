@@ -3,22 +3,28 @@ import { type FC } from "react";
 type XAxisProps = {
   maxPrice: number;
   y: number;
+  hCoef: number;
 };
 
-const YAxis: FC<XAxisProps> = ({ y, maxPrice }) => {
+const YAxis: FC<XAxisProps> = ({ y, maxPrice, hCoef }) => {
   const startAxisPrice = Math.round(maxPrice / 100) * 100;
-  console.log(maxPrice);
   const delta = startAxisPrice - maxPrice;
+  let interval = 10;
+  if (hCoef < 3) {
+    interval = 50;
+  }
   return (
     <div className="absolute right-0 h-full">
       {[...Array(100).keys()].map((i) => {
         return (
           <div
             className="absolute right-0 mr-2 flex flex-row text-xs"
-            style={{ top: y + 100 + (i - 10) * 50 - delta * 5 - 8 }}
+            style={{
+              top: y + 100 + (i - 20) * interval * hCoef - delta * hCoef - 8,
+            }}
             key={`xaxis-${i}`}
           >
-            {startAxisPrice - (i - 10) * 10}
+            {startAxisPrice - (i - 20) * interval}
             <div
               className="absolute right-[-8px] h-[1px] w-1 bg-black"
               style={{ bottom: "50%" }}

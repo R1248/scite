@@ -6,28 +6,38 @@ type Stock = {
   changePercent: number;
   id: string;
   setGraphData: (graphData: { name: string; startPrice: number }) => void;
+  firstPrice: number;
 };
 
 const StockItem: FC<Stock> = ({
   name,
   price,
+  firstPrice,
   changePercent,
   setGraphData,
   id,
 }) => {
-  const color =
-    changePercent > 0 ? "green" : changePercent < 0 ? "red" : "gray";
+  let color = "gray";
+
+  if (changePercent > 0) {
+    color = "green";
+  }
+  if (changePercent < 0) {
+    color = "red";
+  }
   return (
     <button
       key={name}
-      className="flex w-full border-b border-solid border-gray-300 p-[2px] hover:bg-gray-200"
-      onClick={() => setGraphData({ name: id, startPrice: price })}
+      className="flex w-full border-b border-solid border-gray-300 p-[2px] hover:bg-gray-100"
+      onClick={() => setGraphData({ name: id, startPrice: firstPrice })}
     >
       <div className="h-6 w-6 rounded bg-gray-300" />
-      <div className="mt-[2px] flex grow flex-row justify-between px-2 text-sm">
+      <div className="ml-2 mt-[2px] flex w-16 grow flex-row justify-between text-sm">
         <div>{name}</div>
-        <div>{price}</div>
-        <div className={`text-${color}-500`}>{changePercent}%</div>
+        <div>{Math.round(price * 100) / 100}</div>
+        <div className={`text-${color}-500`}>
+          {Math.round(changePercent * 100) / 100}%
+        </div>
       </div>
     </button>
   );

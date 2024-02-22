@@ -55,6 +55,7 @@ const Graph: FC<GraphProps> = ({ company, startPrice }) => {
 
   const minPrice = Math.min(...prefixedPriceMoves) * startPrice;
   const maxPrice = Math.max(...prefixedPriceMoves) * startPrice;
+  const hCoef = 500 / maxPrice;
 
   return (
     <div
@@ -101,11 +102,12 @@ const Graph: FC<GraphProps> = ({ company, startPrice }) => {
               close={price * startPrice}
               wCoef={wCoef}
               key={price + i}
+              hCoef={hCoef}
             />
           ))}
         </div>
       </div>
-      <YAxis y={y} maxPrice={maxPrice} />
+      <YAxis y={y} maxPrice={maxPrice} hCoef={hCoef} />
       <XAxis wCoef={wCoef} x={x} />
     </div>
   );
@@ -116,9 +118,10 @@ type CandleProps = {
   close: number;
   wCoef: number;
   minPrice: number;
+  hCoef: number;
 };
 
-const Candle: FC<CandleProps> = ({ open, close, wCoef, minPrice }) => {
+const Candle: FC<CandleProps> = ({ open, close, wCoef, minPrice, hCoef }) => {
   const backgroundColor = open > close ? "bg-red-500" : "bg-green-500";
 
   return (
@@ -128,9 +131,9 @@ const Candle: FC<CandleProps> = ({ open, close, wCoef, minPrice }) => {
         marginLeft: 1,
         marginRight: 1,
         width: wCoef,
-        height: open > close ? (open - close) * 5 : (close - open) * 5,
+        height: open > close ? (open - close) * hCoef : (close - open) * hCoef,
         marginBottom:
-          open > close ? (close - minPrice) * 5 : (open - minPrice) * 5,
+          open > close ? (close - minPrice) * hCoef : (open - minPrice) * hCoef,
       }}
     ></div>
   );

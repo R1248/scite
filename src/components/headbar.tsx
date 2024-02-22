@@ -9,12 +9,13 @@ import { TbLogout } from "react-icons/tb";
 const Headbar = () => {
   const [profileSettings, setProfileSettings] = useState(false);
   const profleButtonRef = useRef<HTMLButtonElement>(null);
+  const { data: sessionData } = useSession();
 
   return (
     <div className="relative z-20 flex w-full min-w-full flex-row items-center border-b border-solid border-black bg-white">
       <Image src={Logo} alt="logo" width={64} height={64} />
       <h1 className="invisible mt-1 text-3xl sm:visible">SCITE SIMULATOR</h1>
-      <div></div>
+      {sessionData ? <div></div> : <></>}
       <button
         ref={profleButtonRef}
         className="ml-auto mr-2 text-5xl"
@@ -75,7 +76,7 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({
         My Account
       </button>
       <button
-        className="w-full rounded p-1 text-left hover:bg-gray-200"
+        className="w-full rounded p-1 text-left hover:bg-gray-100"
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
         <TbLogout className="mx-1 mb-[2px] inline" />

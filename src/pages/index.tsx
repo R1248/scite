@@ -8,6 +8,7 @@ import ControlPanel from "~/components/main_panel/controlPanel";
 import { useState } from "react";
 import Portfolio from "~/components/main_panel/portfolio";
 import { StockProvider } from "~/dataContext";
+import AuthPage from "~/components/authPage";
 
 export default function Home() {
   const [displayPortfolio, setDisplayPortfolio] = useState(false);
@@ -23,9 +24,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex h-screen min-h-full w-screen min-w-full flex-col">
-        <Headbar />
         {sessionData ? (
           <StockProvider>
+            <Headbar />
             <div className="flex h-full flex-row">
               <StockSidebar setGraphData={setGraphData} />
               <div className="relative flex w-full flex-col overflow-hidden">
@@ -41,7 +42,10 @@ export default function Home() {
                         startPrice={graphData.startPrice}
                       />
                     )}
-                    <ControlPanel setDisplayPortfolio={setDisplayPortfolio} />
+                    <ControlPanel
+                      setDisplayPortfolio={setDisplayPortfolio}
+                      company={graphData.name}
+                    />
                   </>
                 )}
               </div>
@@ -49,7 +53,7 @@ export default function Home() {
             </div>
           </StockProvider>
         ) : (
-          <></>
+          <AuthPage />
         )}
       </main>
     </>
