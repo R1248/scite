@@ -1,27 +1,20 @@
 import { useContext } from "react";
-import { StockContext } from "~/dataContext";
-import { api } from "~/utils/api";
+import { StockContext, UserDataContext } from "~/dataContext";
 
 const AccountValue = () => {
   const stocks = useContext(StockContext);
-  const {
-    data: userData,
-    isLoading,
-    isError,
-  } = api.userData.getUserData.useQuery();
+  const user = useContext(UserDataContext);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (isError) {
-    return <div>Error</div>;
-  }
-
-  let cashInStocks = userData?.cash ?? 0;
+  let cashInStocks = user.cash;
   stocks.forEach((stock) => {
     cashInStocks += stock.currentPrice * stock.owned;
   });
-  return <div className="ml-auto">${Math.round(cashInStocks * 100) / 100}</div>;
+  return (
+    <button className="ml-auto w-40 text-left">
+      <div className="mb-[-4px] text-xs">Account Data</div>
+      <div className="text-xl">${Math.round(cashInStocks * 100) / 100}</div>
+    </button>
+  );
 };
 
 export default AccountValue;

@@ -20,18 +20,15 @@ export const BuyButton: FC<TransactionButtonProps> = ({ company }) => {
   const onUpdate = () => {
     updateStock(
       {
-        owned: currentStock!.owned + 1,
-        buyPrice:
-          (currentStock!.owned * currentStock!.buyPrice +
-            currentStock!.currentPrice) /
-          (currentStock!.owned + 1),
+        owned: currentStock!.owned - 1,
+        buyPrice: currentStock!.buyPrice,
         stockId: currentStock!.id,
       },
       {
         onSuccess: () =>
           updateUser(
             {
-              cash: userData.cash - currentStock!.currentPrice * 1.01,
+              cash: userData.cash + currentStock!.currentPrice,
             },
             {
               onSuccess: () => {
@@ -68,15 +65,18 @@ export const SellButton: FC<TransactionButtonProps> = ({ company }) => {
   const onUpdate = () => {
     updateStock(
       {
-        owned: currentStock!.owned - 1,
-        buyPrice: currentStock!.buyPrice,
+        owned: currentStock!.owned + 1,
+        buyPrice:
+          (currentStock!.owned * currentStock!.buyPrice +
+            currentStock!.currentPrice) /
+          (currentStock!.owned + 1),
         stockId: currentStock!.id,
       },
       {
         onSuccess: () =>
           updateUser(
             {
-              cash: userData.cash + currentStock!.currentPrice,
+              cash: userData.cash - currentStock!.currentPrice * 1.01,
             },
             {
               onSuccess: () => {

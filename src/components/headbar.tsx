@@ -6,16 +6,30 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { useState, useEffect, useRef, type FC } from "react";
 import { TbLogout } from "react-icons/tb";
 import AccountValue from "./accountValue";
+import { PiChartPie } from "react-icons/pi";
 
-const Headbar = () => {
+type HeadbarProps = {
+  displayPortfolio: boolean;
+  setDisplayPortfolio: (b: boolean) => void;
+};
+
+const Headbar: FC<HeadbarProps> = ({
+  displayPortfolio,
+  setDisplayPortfolio,
+}) => {
   const [profileSettings, setProfileSettings] = useState(false);
   const profleButtonRef = useRef<HTMLButtonElement>(null);
+
+  const color = displayPortfolio ? "blue-500" : "black";
 
   return (
     <div className="relative z-20 flex w-full min-w-full flex-row items-center border-b border-solid border-black bg-white">
       <Image src={Logo} alt="logo" width={64} height={64} />
       <h1 className="invisible mt-1 text-3xl sm:visible">SCITE SIMULATOR</h1>
       <AccountValue />
+      <button onClick={() => setDisplayPortfolio(!displayPortfolio)}>
+        <PiChartPie className={`text-[46px] text-${color}`} />
+      </button>
       <button
         ref={profleButtonRef}
         className="ml-2 mr-2 text-5xl"
@@ -83,6 +97,15 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({
         {sessionData ? "Sign Out" : "Sign In"}
       </button>
     </div>
+  );
+};
+
+export const TailwindBuster = () => {
+  return (
+    <>
+      <i className="text-blue-500" />
+      <i className="text-black" />
+    </>
   );
 };
 

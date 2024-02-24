@@ -33,7 +33,10 @@ export default function Home() {
         {sessionData ? (
           <StockProvider>
             <UserDataProvider>
-              <Headbar />
+              <Headbar
+                displayPortfolio={displayPortfolio}
+                setDisplayPortfolio={setDisplayPortfolio}
+              />
               <div className="flex h-full flex-row">
                 <StockSidebar setGraphData={setGraphData} />
                 <div className="relative flex w-full flex-col overflow-hidden">

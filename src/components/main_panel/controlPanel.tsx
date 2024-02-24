@@ -42,13 +42,13 @@ const ControlPanel: FC<ControlPanelProps> = ({ company }) => {
         </div>
       </div>
       <div className="flex w-full flex-row items-center justify-center">
-        <button className="mr-2 flex h-24 w-24 items-center justify-center rounded-md bg-blue-500 hover:bg-blue-600">
+        <button className="mr-3 flex h-24 w-24 items-center justify-center rounded-md bg-blue-500 hover:bg-blue-600">
           <MdSettings className="text-[64px] text-white" />
         </button>
         <button className="flex h-24 w-24 items-center justify-center rounded-md bg-blue-500 hover:bg-blue-600">
           <FaPlay className="text-5xl text-white" />
         </button>
-        <button className="ml-2 flex h-24 w-24 items-center justify-center rounded-md bg-blue-500 hover:bg-blue-600">
+        <button className="ml-3 flex h-24 w-24 items-center justify-center rounded-md bg-blue-500 hover:bg-blue-600">
           <TbArrowForwardUp className="text-6xl text-white" />
         </button>
       </div>
