@@ -5,20 +5,20 @@ import { HiOutlineUserCircle } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useState, useEffect, useRef, type FC } from "react";
 import { TbLogout } from "react-icons/tb";
+import AccountValue from "./accountValue";
 
 const Headbar = () => {
   const [profileSettings, setProfileSettings] = useState(false);
   const profleButtonRef = useRef<HTMLButtonElement>(null);
-  const { data: sessionData } = useSession();
 
   return (
     <div className="relative z-20 flex w-full min-w-full flex-row items-center border-b border-solid border-black bg-white">
       <Image src={Logo} alt="logo" width={64} height={64} />
       <h1 className="invisible mt-1 text-3xl sm:visible">SCITE SIMULATOR</h1>
-      {sessionData ? <div></div> : <></>}
+      <AccountValue />
       <button
         ref={profleButtonRef}
-        className="ml-auto mr-2 text-5xl"
+        className="ml-2 mr-2 text-5xl"
         onClick={() => setProfileSettings(!profileSettings)}
       >
         <HiOutlineUserCircle />

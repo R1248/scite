@@ -42,17 +42,17 @@ model Session {
 }
 
 model User {
-    id            String       @id @default(cuid())
+    id            String     @id @default(cuid())
     name          String?
-    email         String?      @unique
+    email         String?    @unique
     emailVerified DateTime?
     image         String?
+    cash          Float      @default(100000)
     accounts      Account[]
     sessions      Session[]
     stocks        Stock[]
     news          News[]
     worldData     WorldData?
-    accountData   AccountData?
 }
 
 model WorldData {
@@ -68,13 +68,6 @@ model WorldData {
     userId              String @unique
 }
 
-model AccountData {
-    id     String @id @default(cuid())
-    user   User   @relation(fields: [userId], references: [id])
-    cash   Float  @default(100000)
-    userId String @unique
-}
-
 model VerificationToken {
     identifier String
     token      String   @unique
@@ -84,7 +77,7 @@ model VerificationToken {
 }
 
 model Stock {
-    id            String        @id @default(cuid())
+    id            String      @id @default(cuid())
     logo          String
     name          String
     symbol        String
@@ -93,9 +86,9 @@ model Stock {
     firstPrice    Float
     currentPrice  Float
     previousPrice Float
+    buyPrice      Float       @default(0)
     priceMoves    PriceMove[]
-    transactions  Transaction[]
-    user          User          @relation(fields: [userId], references: [id])
+    user          User        @relation(fields: [userId], references: [id])
     userId        String
 }
 
@@ -116,14 +109,4 @@ model PriceMove {
     price   Float
     stock   Stock  @relation(fields: [stockId], references: [id])
     stockId String
-}
-
-model Transaction {
-    id         String   @id @default(cuid())
-    date       DateTime
-    amount     Int
-    buyPrice   Float
-    closePrice Float?
-    stock      Stock    @relation(fields: [stockId], references: [id])
-    stockId    String
 }

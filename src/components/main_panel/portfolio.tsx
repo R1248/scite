@@ -19,11 +19,18 @@ const Portfolio: FC<PortfolioProps> = ({ setDisplayPortfolio }) => {
       </div>
       {ownedStocks.map((stock) => (
         <div key={stock.symbol}>
-          <div className="flex w-full p-[2px] text-lg hover:bg-gray-100">
+          <div className="ml-2 flex w-full p-[2px] text-lg hover:bg-gray-100">
             <div className="h-8 w-8 rounded bg-gray-300" />
             <p className="ml-2 mt-[2px]">{stock.symbol}</p>
             <p className="ml-auto mr-2 mt-[2px]">
               {Math.round(stock.owned * stock.currentPrice * 100) / 100} $
+            </p>
+            <p className="ml-2 mr-3 mt-[2px] w-16 text-right">
+              {Math.round(
+                ((stock.currentPrice - stock.buyPrice) / stock.buyPrice) *
+                  10000,
+              ) / 100}
+              %
             </p>
           </div>
         </div>

@@ -2,11 +2,12 @@ import { type FC } from "react";
 
 type XAxisProps = {
   maxPrice: number;
+  curentPrice: number;
   y: number;
   hCoef: number;
 };
 
-const YAxis: FC<XAxisProps> = ({ y, maxPrice, hCoef }) => {
+const YAxis: FC<XAxisProps> = ({ y, maxPrice, hCoef, curentPrice }) => {
   const startAxisPrice = Math.round(maxPrice / 100) * 100;
   const delta = startAxisPrice - maxPrice;
   let interval = 10;
@@ -15,6 +16,10 @@ const YAxis: FC<XAxisProps> = ({ y, maxPrice, hCoef }) => {
   }
   return (
     <div className="absolute right-0 h-full">
+      <hr
+        className="absolute right-0 w-screen border-t-2 border-dashed border-blue-400/50"
+        style={{ top: y + 100 + (maxPrice - curentPrice) * hCoef }}
+      />
       {[...Array(100).keys()].map((i) => {
         return (
           <div

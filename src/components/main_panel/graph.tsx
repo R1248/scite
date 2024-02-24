@@ -7,9 +7,10 @@ import { type PriceMove } from "@prisma/client";
 type GraphProps = {
   company: string;
   startPrice: number;
+  curentPrice: number;
 };
 
-const Graph: FC<GraphProps> = ({ company, startPrice }) => {
+const Graph: FC<GraphProps> = ({ company, startPrice, curentPrice }) => {
   let initX = 0;
   let initY = 0;
   const [x, setX] = useState<number>(0);
@@ -107,7 +108,12 @@ const Graph: FC<GraphProps> = ({ company, startPrice }) => {
           ))}
         </div>
       </div>
-      <YAxis y={y} maxPrice={maxPrice} hCoef={hCoef} />
+      <YAxis
+        y={y}
+        maxPrice={maxPrice}
+        curentPrice={curentPrice}
+        hCoef={hCoef}
+      />
       <XAxis wCoef={wCoef} x={x} />
     </div>
   );

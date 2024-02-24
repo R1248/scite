@@ -7,12 +7,18 @@ import Graph from "~/components/main_panel/graph";
 import ControlPanel from "~/components/main_panel/controlPanel";
 import { useState } from "react";
 import Portfolio from "~/components/main_panel/portfolio";
-import { StockProvider } from "~/dataContext";
+import { StockProvider, UserDataProvider } from "~/dataContext";
 import AuthPage from "~/components/authPage";
+import Image from "next/image";
+import logo from "../../public/logo.png";
 
 export default function Home() {
   const [displayPortfolio, setDisplayPortfolio] = useState(false);
-  const [graphData, setGraphData] = useState({ name: "", startPrice: 0 });
+  const [graphData, setGraphData] = useState({
+    name: "",
+    startPrice: 0,
+    curentPrice: 0,
+  });
 
   const { data: sessionData } = useSession();
 
@@ -26,31 +32,40 @@ export default function Home() {
       <main className="flex h-screen min-h-full w-screen min-w-full flex-col">
         {sessionData ? (
           <StockProvider>
-            <Headbar />
-            <div className="flex h-full flex-row">
-              <StockSidebar setGraphData={setGraphData} />
-              <div className="relative flex w-full flex-col overflow-hidden">
-                {displayPortfolio ? (
-                  <Portfolio setDisplayPortfolio={setDisplayPortfolio} />
-                ) : (
-                  <>
-                    {graphData.name === "" ? (
-                      <div className="relative z-10 h-full w-full min-w-full self-stretch"></div>
-                    ) : (
-                      <Graph
-                        company={graphData.name}
-                        startPrice={graphData.startPrice}
-                      />
-                    )}
-                    <ControlPanel
-                      setDisplayPortfolio={setDisplayPortfolio}
-                      company={graphData.name}
-                    />
-                  </>
-                )}
+            <UserDataProvider>
+              <Headbar />
+              <div className="flex h-full flex-row">
+                <StockSidebar setGraphData={setGraphData} />
+                <div className="relative flex w-full flex-col overflow-hidden">
+                  {displayPortfolio ? (
+                    <Portfolio setDisplayPortfolio={setDisplayPortfolio} />
+                  ) : (
+                    <>
+                      {graphData.name === "" ? (
+                        <div className="relative z-10 flex h-full w-full min-w-full items-center justify-center self-stretch">
+                          <Image
+                            src={logo}
+                            alt="logo"
+                            height={500}
+                            className="opacity-10"
+                          />
+                        </div>
+                      ) : (
+                        <>
+                          <Graph
+                            company={graphData.name}
+                            startPrice={graphData.startPrice}
+                            curentPrice={graphData.curentPrice}
+                          />
+                          <ControlPanel company={graphData.name} />
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
+                <NewsSidebar />
               </div>
-              <NewsSidebar />
-            </div>
+            </UserDataProvider>
           </StockProvider>
         ) : (
           <AuthPage />

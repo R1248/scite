@@ -10,7 +10,7 @@ const AuthPage = () => {
       <h1 className="mt-6 text-6xl">SCITE SIMULATOR</h1>
       <h2 className="mb-20 mt-1 text-2xl">START YOUR STOCK MARKET JOURNEY</h2>
       <button
-        className="mb-4 flex flex-row items-center justify-center rounded bg-blue-400 p-4 text-left text-xl text-white hover:bg-blue-500"
+        className="mb-4 flex flex-row items-center justify-center rounded bg-blue-500 p-4 text-left text-xl text-white hover:bg-blue-600"
         onClick={() => void signIn()}
       >
         <FaGoogle className="color-white text-2xl" />

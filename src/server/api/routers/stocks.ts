@@ -26,7 +26,7 @@ export const stockRouter = createTRPCRouter({
   }),
 
   transaction: protectedProcedure
-  .input(z.object({owned: z.number(), stockId: z.string()}))
+  .input(z.object({owned: z.number(), stockId: z.string(), buyPrice: z.number()}))
   .mutation(async ({ctx, input}) => {
     return ctx.db.stock.update({
       where: {
@@ -34,6 +34,7 @@ export const stockRouter = createTRPCRouter({
       },
       data: {
         owned: input.owned,
+        buyPrice: input.buyPrice,
       },
     });
   }),
