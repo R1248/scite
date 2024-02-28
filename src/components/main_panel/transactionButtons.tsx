@@ -6,7 +6,7 @@ type TransactionButtonProps = {
   company: string;
 };
 
-export const BuyButton: FC<TransactionButtonProps> = ({ company }) => {
+export const SellButton: FC<TransactionButtonProps> = ({ company }) => {
   const stocks = useContext(StockContext);
   const userData = useContext(UserDataContext);
 
@@ -18,6 +18,7 @@ export const BuyButton: FC<TransactionButtonProps> = ({ company }) => {
   const utils = api.useUtils();
 
   const onUpdate = () => {
+    if (currentStock!.owned === 0) return;
     updateStock(
       {
         owned: currentStock!.owned - 1,
@@ -43,7 +44,7 @@ export const BuyButton: FC<TransactionButtonProps> = ({ company }) => {
 
   return (
     <button
-      className="mr-2 flex h-14 w-[200px] flex-row items-center rounded-md bg-blue-500 text-xl hover:bg-blue-600"
+      className="flex h-14 w-[200px] flex-row items-center rounded-md bg-blue-500 text-xl hover:bg-blue-600"
       onClick={onUpdate}
     >
       <p className=" w-full text-center font-semibold text-white">SELL</p>
@@ -51,7 +52,7 @@ export const BuyButton: FC<TransactionButtonProps> = ({ company }) => {
   );
 };
 
-export const SellButton: FC<TransactionButtonProps> = ({ company }) => {
+export const BuyButton: FC<TransactionButtonProps> = ({ company }) => {
   const stocks = useContext(StockContext);
   const userData = useContext(UserDataContext);
 
@@ -91,7 +92,7 @@ export const SellButton: FC<TransactionButtonProps> = ({ company }) => {
 
   return (
     <button
-      className="flex h-14 w-[200px] flex-row items-center rounded-md bg-blue-500 text-xl hover:bg-blue-600"
+      className="mr-2 flex h-14 w-[200px] flex-row items-center rounded-md bg-blue-500 text-xl hover:bg-blue-600"
       onClick={onUpdate}
     >
       <p className=" w-full text-center font-semibold text-white">BUY</p>

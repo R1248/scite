@@ -1,6 +1,5 @@
 const defaultStocks = [
   {
-    logo: "",
     name: "Apple",
     symbol: "AAPL",
     category: "Technology",
@@ -9,7 +8,6 @@ const defaultStocks = [
     previousPrice: 421.87,
   },
   {
-    logo: "",
     name: "Microsoft",
     symbol: "MSFT",
     category: "Technology",
@@ -18,7 +16,6 @@ const defaultStocks = [
     previousPrice: 450.806,
   },
   {
-    logo: "",
     name: "Nvidia",
     symbol: "NVDA",
     category: "Technology",
@@ -26,8 +23,8 @@ const defaultStocks = [
     currentPrice: 356.303,
     previousPrice: 374.453,
   },
+  /*
   {
-    logo: "",
     name: "Meta",
     symbol: "META",
     category: "Technology",
@@ -36,7 +33,6 @@ const defaultStocks = [
     previousPrice: 278.845,
   },
   {
-    logo: "",
     name: "Tesla",
     symbol: "TSLA",
     category: "Automotive",
@@ -45,7 +41,6 @@ const defaultStocks = [
     previousPrice: 257.94,
   },
   {
-    logo: "",
     name: "Ford",
     symbol: "F",
     category: "Automotive",
@@ -54,7 +49,6 @@ const defaultStocks = [
     previousPrice: 24.251,
   },
   {
-    logo: "",
     name: "General Motors",
     symbol: "GM",
     category: "Automotive",
@@ -63,7 +57,6 @@ const defaultStocks = [
     previousPrice: 52.882,
   },
   {
-    logo: "",
     name: "Bank of America",
     symbol: "BAC",
     category: "Banking",
@@ -72,7 +65,6 @@ const defaultStocks = [
     previousPrice: 33.139,
   },
   {
-    logo: "",
     name: "JPMorgan Chase",
     symbol: "JPM",
     category: "Banking",
@@ -81,7 +73,6 @@ const defaultStocks = [
     previousPrice: 379.437,
   },
   {
-    logo: "",
     name: "Wells Fargo",
     symbol: "WFC",
     category: "Banking",
@@ -90,7 +81,6 @@ const defaultStocks = [
     previousPrice: 59.598,
   },
   {
-    logo: "",
     name: "Berkshire Hathaway",
     symbol: "BRK-A",
     category: "Banking",
@@ -98,6 +88,7 @@ const defaultStocks = [
     currentPrice: 427.925,
     previousPrice: 415.393,
   },
+  */
 ];
 
 export const defaultPriceMoves = [
@@ -137,6 +128,7 @@ export const defaultPriceMoves = [
     -4.823, 0.097, -1.861, 0.854, 4.672, 3.202, 5.266, 3.463, 3.043, -0.928,
     1.083, -4.88, -4.49, 5.342, -1.142, 4.204, -0.352, -4.478, -2.15, -4.847,
   ],
+  /*
   [
     -1.053, 2.261, 5.888, -0.106, -4.531, -3.494, 2.303, -1.381, -1.771, -4.826,
     2.43, 1.343, 3.32, 2.594, 1.228, -1.757, -1.151, 2.643, 0.122, 1.878, 1.852,
@@ -233,6 +225,7 @@ export const defaultPriceMoves = [
     -4.661, 0.957, -4.03, -2.748, 3.818, 0.692, -4.686, 4.795, -1.796, 1.957,
     -2.382, -3.236, -4.443, 2.552, 4.212, -3.985, -4.448, 3.615, 3.017,
   ],
+  */
 ];
 
 export default defaultStocks;

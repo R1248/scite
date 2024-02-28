@@ -5,11 +5,7 @@ type Stock = {
   price: number;
   changePercent: number;
   id: string;
-  setGraphData: (graphData: {
-    name: string;
-    startPrice: number;
-    curentPrice: number;
-  }) => void;
+  setGraphData: (graphData: { name: string; startPrice: number }) => void;
   firstPrice: number;
 };
 
@@ -33,9 +29,7 @@ const StockItem: FC<Stock> = ({
     <button
       key={name}
       className="flex w-full border-b border-solid border-gray-300 p-[2px] hover:bg-gray-100"
-      onClick={() =>
-        setGraphData({ name: id, startPrice: firstPrice, curentPrice: price })
-      }
+      onClick={() => setGraphData({ name: id, startPrice: firstPrice })}
     >
       <div className="h-6 w-6 rounded bg-gray-300" />
       <div className="ml-2 mt-[2px] flex w-16 grow flex-row justify-between text-sm">

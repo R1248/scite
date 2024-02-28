@@ -39,15 +39,29 @@ export const stockRouter = createTRPCRouter({
     });
   }),
 
-  newPriceMove: protectedProcedure
-  .input(z.object({stockId: z.string(), price: z.number(), date: z.string()}))
+  newPriceMoveTimeframe: protectedProcedure
+  .input(z.object({stockId: z.string(), priceMove: z.number()}))
   .mutation(async ({ctx, input}) => {
-    return ctx.db.priceMove.create({
+    return (ctx.db.priceMove.create({
       data: {
         stockId: input.stockId,
-        price: input.price,
+        price: input.priceMove,
       },
-    });
+    }));
+  }),
+
+  newStockTimeframe: protectedProcedure
+  .input(z.object({stockId: z.string(), newCurrentPrice: z.number(), newPreviousPrice: z.number()}))
+  .mutation(async ({ctx, input}) => {
+    return (ctx.db.stock.update({
+      where: {
+        id: input.stockId,
+      },
+      data: {
+        currentPrice: input.newCurrentPrice,
+        previousPrice: input.newPreviousPrice,
+      },
+    }));
   }),
 
   allPriceMoves: protectedProcedure

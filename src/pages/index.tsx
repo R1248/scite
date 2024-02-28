@@ -17,7 +17,6 @@ export default function Home() {
   const [graphData, setGraphData] = useState({
     name: "",
     startPrice: 0,
-    curentPrice: 0,
   });
 
   const { data: sessionData } = useSession();
@@ -58,7 +57,6 @@ export default function Home() {
                           <Graph
                             company={graphData.name}
                             startPrice={graphData.startPrice}
-                            curentPrice={graphData.curentPrice}
                           />
                           <ControlPanel company={graphData.name} />
                         </>

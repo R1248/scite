@@ -22,7 +22,12 @@ const Portfolio: FC<PortfolioProps> = ({ setDisplayPortfolio }) => {
           <div className="ml-2 flex w-full p-[2px] text-lg hover:bg-gray-100">
             <div className="h-8 w-8 rounded bg-gray-300" />
             <p className="ml-2 mt-[2px]">{stock.symbol}</p>
-            <p className="ml-auto mr-2 mt-[2px]">
+            <p className="ml-auto mr-4 mt-[2px] w-20">
+              {stock.owned}
+              &nbsp;
+              {stock.owned == 1 ? "share" : "shares"}
+            </p>
+            <p className="ml-2 mr-2 mt-[2px] w-24">
               {Math.round(stock.owned * stock.currentPrice * 100) / 100} $
             </p>
             <p className="ml-2 mr-3 mt-[2px] w-16 text-right">

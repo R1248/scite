@@ -4,11 +4,7 @@ import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { StockContext } from "~/dataContext";
 
 type StockSidebarProps = {
-  setGraphData: (graphData: {
-    name: string;
-    startPrice: number;
-    curentPrice: number;
-  }) => void;
+  setGraphData: (graphData: { name: string; startPrice: number }) => void;
 };
 
 const StockSidebar: FC<StockSidebarProps> = ({ setGraphData }) => {

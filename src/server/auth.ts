@@ -48,7 +48,6 @@ export const authOptions: NextAuthOptions = {
       for(const stock of defaultStocks) {
       await db.stock.create({
           data: {
-            logo: stock.logo,
             name: stock.name,
             symbol: stock.symbol,
             category: stock.category,
